@@ -2,6 +2,27 @@
 
 Notable changes to the published crates. Generated from conventional commits by
 [git-cliff](https://git-cliff.org) when a release is cut — do not edit by hand.
+## [0.16.4](https://github.com/anusha-kommu/verifiable-trust-infrastructure/compare/pnm-cli-v0.16.3...pnm-cli-v0.16.4) — 2026-09-14
+
+
+### Added
+
+- **pnm**: Confirm before `vta remove`, with a --force opt-out ([#1457](https://github.com/anusha-kommu/verifiable-trust-infrastructure/pull/1457))
+
+`pnm vta remove <slug>` deleted the stored VTA connection and its
+  keyring credential with no prompt, and a mistyped slug is unrecoverable
+  from the config file. It now prints what is about to go — name, DID, the
+  credential, and whether the default VTA moves — and asks before doing
+  it.
+
+  The prompt reuses `vta_cli_common::commands::contexts::confirm_destructive`,
+  so the wording matches `pnm contexts delete`. As there, a non-TTY stdin
+  reads EOF and aborts, which is what `--force` is for: scripts that today
+  call `pnm vta remove` (the `pnm setup --overwrite` hint points at it) pass
+  the flag to keep their old behaviour.
+
+
+
 ## [0.16.3](https://github.com/OpenVTC/verifiable-trust-infrastructure/compare/pnm-cli-v0.16.2...pnm-cli-v0.16.3) — 2026-09-12
 
 
